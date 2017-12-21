@@ -18,4 +18,16 @@ class BooksController extends Controller
         $book->save();
     }
 
+    public function delete($bid){
+
+        $book = Book::find($bid);
+        if($book==null){
+            return abort(404);
+        }
+        else{
+            $book->delete();
+            echo "Book deleted...";
+        }
+    }
+
 }

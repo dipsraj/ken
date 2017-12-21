@@ -14,4 +14,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/','PagesController@index');
-Route::get('/insert-book','BooksController@insert');
+Route::get('/book/insert','BooksController@insert');
+Route::get('/book/delete/{bid}', ['uses' =>'BooksController@delete']);

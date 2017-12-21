@@ -15,7 +15,7 @@ class UpdateBooksTable extends Migration
     {
         //
         Schema::table('books', function ($table) {
-            $table->string('book_code'); //the after method is optional.
+            $table->string('book_code')->after('id');
         });
     }
 
