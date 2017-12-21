@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Exception;
 use Illuminate\Http\Request;
 use App\Book;
 
@@ -22,10 +23,23 @@ class BooksController extends Controller
 
         $book = Book::find($bid);
         if($book==null){
-            return abort(404);
+            return abort(404,'Book Not Found.');
         }
         else{
             $book->delete();
+            echo "Book deleted...";
+        }
+    }
+
+    public function edit($bid){
+
+        $book = Book::find($bid);
+        if($book==null){
+            return abort(404 , 'Book ot Present');
+        }
+        else{
+            $book->book_name = 'New Book';
+            $book->save();
             echo "Book deleted...";
         }
     }

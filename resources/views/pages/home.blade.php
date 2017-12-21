@@ -1,4 +1,5 @@
 @extends('layouts.master')
+<?php $title = config('app.name'); ?>
 @section('custom-internal-css')
     <style>
         html, body {
