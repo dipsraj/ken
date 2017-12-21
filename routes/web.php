@@ -14,3 +14,4 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/','PagesController@index');
+Route::get('/insert-book','BooksController@insert');

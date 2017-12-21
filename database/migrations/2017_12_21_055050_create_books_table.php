@@ -17,8 +17,8 @@ class CreateBooksTable extends Migration
             $table->increments('id');
             $table->string('book_name');
             $table->string('book_author');
-            $table->string('book_pages');
-            $table->integer('book_price');
+            $table->integer('book_pages');
+            $table->decimal('book_price');
             $table->string('book_category');
         });
     }
