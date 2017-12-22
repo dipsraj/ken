@@ -13,7 +13,7 @@
 
 Route::get('/','PagesController@index');
 
-Route::get('/view/books','BooksController@index');
+Route::get('/books','BooksController@index');
 
 Route::get('/insert/book','BooksController@create');
 Route::post('/insert/book','BooksController@store');

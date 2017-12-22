@@ -4,10 +4,6 @@
 @section('custom-internal-css')
     <style>
         html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
             height: 100vh;
             margin: 0;
         }
@@ -61,6 +57,7 @@
 @endsection
 @section('content')
     <body>
+    @include('inc.navbar')
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
             <div class="top-right links">
@@ -79,7 +76,8 @@
             </div>
 
             <div class="links">
-                <a href="{{ url('/insert/book') }}">Insert New Book</a>
+                {{--<a href="{{ url('/books') }}">View Books</a>--}}
+                {{--<a href="{{ url('/insert/book') }}">Insert New Book</a>--}}
             </div>
         </div>
     </div>

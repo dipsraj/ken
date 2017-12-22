@@ -11,11 +11,15 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //show all books
+        $msg = $request->session()->get('message');
+        $request->session()->forget('message');
+        $books = Book::all();
+        return view('books.index')->with('msg',$msg)->with('books',$books);
     }
 
     /**
@@ -28,7 +32,7 @@ class BooksController extends Controller
     {
         $msg = $request->session()->get('message');
         $request->session()->forget('message');
-        return view('pages.insert')->with('msg',$msg);
+        return view('books.insert')->with('msg',$msg);
     }
 
     /**
@@ -50,9 +54,9 @@ class BooksController extends Controller
         $book->book_code = $input['book_code'];
         $book->save();
 
-        session(['message' => 'Book Inserted Successfully']);
+        session(['message' => 'Book Inserted Successfully.']);
 
-        return redirect('/insert/book');
+        return redirect('/books');
     }
 
     /**
@@ -111,7 +115,10 @@ class BooksController extends Controller
         }
         else{
             $book->delete();
-            echo "Book deleted...";
+
+            session(['message' => 'Book Deleted Successfully.']);
+
+            return redirect('/books');
         }
     }
 }

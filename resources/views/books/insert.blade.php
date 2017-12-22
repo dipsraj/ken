@@ -25,43 +25,38 @@
 @endsection
 @section('content')
     <body>
-    <?php
-    if($msg!=null){
-        echo "<script>";
-        echo "
-                swal({
-                    type: 'success',
-                    title: '".$msg."'
-                });
-            ";
-        echo "</script>";
-    }
-    ?>
-        <div class="flex-center position-ref full-height">
-            <div class="container" id="form-container">
-                <div class="row">
-                    <div class="col col-sm-1 col-md-3 col-lg-3"></div>
-                    <div class="col col-sm-10 col-md-6 col-lg-6">
-                        <form action="{{ url('/insert/book') }}" method="post">
-                            <label>Book Name</label>
-                            <input type="text" class="form-control" id="book-name" placeholder="Enter Book Name" name="book_name"><br>
-                            <label>Author</label>
-                            <input type="text" class="form-control" id="book-author" placeholder="Enter Author" name="book_author"><br>
-                            <label>No. of Pages</label>
-                            <input type="text" class="form-control" id="book-pages" placeholder="Enter No of Pages" name="book_pages"><br>
-                            <label>Price</label>
-                            <input type="text" class="form-control" id="book-price" placeholder="Enter Price" name="book_price"><br>
-                            <label>Book Category</label>
-                            <input type="text" class="form-control" id="book-category" placeholder="Enter Book Category" name="book_category"><br>
-                            <label>Book Code</label>
-                            <input type="text" class="form-control" id="book-code" placeholder="Enter Book Code" name="book_code"><br>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                    <div class="col col-sm-1 col-md-3 col-lg-3"></div>
+    @include('inc.navbar')
+    <div class="flex-center position-ref full-height">
+        <div class="container" id="form-container">
+            <div class="row">
+                <div class="col col-sm-1 col-md-3 col-lg-3"></div>
+                <div class="col col-sm-10 col-md-6 col-lg-6">
+                    <form action="{{ url('/insert/book') }}" method="post">
+                        <label>Book Name</label>
+                        <input type="text" class="form-control" id="book-name" placeholder="Enter Book Name"
+                               name="book_name"><br>
+                        <label>Author</label>
+                        <input type="text" class="form-control" id="book-author" placeholder="Enter Author"
+                               name="book_author"><br>
+                        <label>No. of Pages</label>
+                        <input type="text" class="form-control" id="book-pages" placeholder="Enter No of Pages"
+                               name="book_pages"><br>
+                        <label>Price</label>
+                        <input type="text" class="form-control" id="book-price" placeholder="Enter Price"
+                               name="book_price"><br>
+                        <label>Book Category</label>
+                        <input type="text" class="form-control" id="book-category" placeholder="Enter Book Category"
+                               name="book_category"><br>
+                        <label>Book Code</label>
+                        <input type="text" class="form-control" id="book-code" placeholder="Enter Book Code"
+                               name="book_code"><br>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
+                <div class="col col-sm-1 col-md-3 col-lg-3"></div>
             </div>
         </div>
+    </div>
     </body>
 @endsection
