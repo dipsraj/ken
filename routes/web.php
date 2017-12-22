@@ -13,8 +13,14 @@
 
 Route::get('/','PagesController@index');
 
-Route::get('/insert/book','BooksController@insertBookForm');
-Route::post('/insert/book','BooksController@insertBook');
+Route::get('/view/books','BooksController@index');
 
-Route::get('/book/delete/{bid}', ['uses' =>'BooksController@delete']);
-Route::get('/book/edit/{bid}', ['uses' =>'BooksController@edit']);
+Route::get('/insert/book','BooksController@create');
+Route::post('/insert/book','BooksController@store');
+
+
+Route::get('/edit/book/{bid}', ['uses' =>'BooksController@update']);
+Route::post('/edit/book/{bid}', ['uses' =>'BooksController@update']);
+
+
+Route::get('/delete/book/{bid}', ['uses' =>'BooksController@destroy']);
