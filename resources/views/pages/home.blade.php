@@ -1,5 +1,6 @@
 @extends('layouts.master')
 <?php $title = config('app.name'); ?>
+@section('page-title',$title)
 @section('custom-internal-css')
     <style>
         html, body {
@@ -49,6 +50,10 @@
             text-transform: uppercase;
         }
 
+        .links > a:hover{
+            color: #da2210;
+        }
+        
         .m-b-md {
             margin-bottom: 30px;
         }
@@ -74,11 +79,7 @@
             </div>
 
             <div class="links">
-                <a href="https://laravel.com/docs">Documentation</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
+                <a href="{{ url('/insert/book') }}">Insert New Book</a>
             </div>
         </div>
     </div>

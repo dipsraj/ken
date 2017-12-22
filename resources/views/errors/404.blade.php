@@ -1,5 +1,4 @@
-@include('/layouts/master')
-
+@extends('layouts.master')
 @section('custom-internal-css')
     <style>
         html, body {
@@ -34,7 +33,7 @@
             padding: 20px;
         }
     </style>
-
+@endsection
 @section('content')
     <body>
     <div class="flex-center position-ref full-height">
@@ -49,3 +48,4 @@
         </div>
     </div>
     </body>
+@endsection
