@@ -19,7 +19,7 @@ Route::get('/insert/book','BooksController@create');
 Route::post('/insert/book','BooksController@store');
 
 
-Route::get('/edit/book/{bid}', ['uses' =>'BooksController@update']);
+Route::get('/edit/book/{bid}', ['uses' =>'BooksController@edit']);
 Route::post('/edit/book/{bid}', ['uses' =>'BooksController@update']);
 
 

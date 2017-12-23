@@ -38,10 +38,9 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         $input = Input::all();
 
@@ -62,8 +61,8 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function show($id)
     {
@@ -73,31 +72,44 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $msg = $request->session()->get('message');
+        $request->session()->forget('message');
+        $book = Book::find($id);
+        if($book==null){
+            return abort(404 , 'Book Not Found.');
+        }
+        return view('books.edit')->with('msg',$msg)->with('book',$book)->with('id',$id);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $book = Book::find($id);
         if($book==null){
             return abort(404 , 'Book Not Found.');
         }
         else{
-            $book->book_name = 'New Book';
+            $input = Input::all();
+            $book->book_name = $input['book_name'];
+            $book->book_author = $input['book_author'];
+            $book->book_pages = $input['book_pages'];
+            $book->book_price = $input['book_price'];
+            $book->book_category = $input['book_category'];
+            $book->book_code = $input['book_code'];
             $book->save();
-            echo "Book Edited...";
+            session(['message' => 'Book Details Updated Successfully.']);
+            return redirect('/books');
         }
     }
 

@@ -33,9 +33,14 @@
                 swal({
                     type: 'success',
                     title: '" . $msg . "'
+                }).then((result) => {
+                    if (result) {
+                        location.href = '/books'
+                    }
                 });
             ";
         echo "</script>";
+        $msg = null;
     }
     ?>
     <div class="flex-center position-ref full-height">
