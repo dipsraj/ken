@@ -26,7 +26,7 @@
 @section('content')
     <body>
     @include('inc.navbar')
-    <div class="jumbotron" align="center">
+    <div class="jumbotron" style="text-align: center">
         <h1>Edit Book Details</h1>
     </div>
     <div class="flex-center position-ref full-height">

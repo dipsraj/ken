@@ -61,12 +61,16 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param  int $id
-     * @return void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $msg = $request->session()->get('message');
+        $request->session()->forget('message');
+        $book = Book::find($id);
+        return view('books.show')->with('book',$book)->with('id',$id)->with('msg',$msg);
     }
 
     /**
@@ -109,7 +113,7 @@ class BooksController extends Controller
             $book->book_code = $input['book_code'];
             $book->save();
             session(['message' => 'Book Details Updated Successfully.']);
-            return redirect('/books');
+            return redirect('/book/'.$id);
         }
     }
 

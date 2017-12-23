@@ -61,7 +61,7 @@
                             <td>{{ $book->book_name }}</td>
                             <td>{{ $book->book_author }}</td>
                             <td>
-                                <button type="button" class="btn btn-info" onclick="location.href='{{ url('/book') }}'">
+                                <button type="button" class="btn btn-info" onclick="location.href='{{ url('/book/'.$id) }}'">
                                     View
                                 </button>
                                 <button type="button" class="btn btn-warning"
