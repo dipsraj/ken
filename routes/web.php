@@ -25,3 +25,6 @@ Route::post('/edit/book/{bid}', ['uses' =>'BooksController@update']);
 Route::get('/book/{bid}', ['uses' =>'BooksController@show']);
 //Delete Book
 Route::get('/delete/book/{bid}', ['uses' =>'BooksController@destroy']);
+
+Auth::routes();
+Route::get('/dashboard', 'DashboardController@index');

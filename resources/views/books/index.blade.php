@@ -51,7 +51,9 @@
                     <tr>
                         <th>Name</th>
                         <th>Author</th>
-                        <th>Action</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,21 +63,30 @@
                             <td>{{ $book->book_name }}</td>
                             <td>{{ $book->book_author }}</td>
                             <td>
-                                <button type="button" class="btn btn-info" onclick="location.href='{{ url('/book/'.$id) }}'">
+                                <button type="button" class="btn btn-info"
+                                        onclick="location.href='{{ url('/book/'.$id) }}'">
                                     View
                                 </button>
-                                <button type="button" class="btn btn-warning"
-                                        onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
-                                </button>
-                                <?php $delete_url = '/delete/book/'.$id ?>
-                                <button type="button" class="btn btn-danger"
-                                        onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
-                                </button>
                             </td>
+                            @if(!Auth::guest())
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
+                                    </button>
+                                </td>
+                                <?php $delete_url = '/delete/book/' . $id ?>
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                            onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
+                                    </button>
+                                </td>
+                                @endif
+                                </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{$books->links()}}
             @else
                 <?php
                 echo "<script>";
@@ -109,9 +120,9 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-                location.href=url;
-            }
-        })
+                    location.href = url;
+                }
+            })
         }
     </script>
 @endsection
