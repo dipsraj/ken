@@ -1,5 +1,8 @@
 @extends('layouts.master')
-<?php $title = 'Dashboard - '.config('app.name'); ?>
+<?php
+$user_show = isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email;
+$title = 'Dashboard - ' . $user_show;
+?>
 @section('page-title',$title)
 @section('custom-internal-css')
     <style>
@@ -58,7 +61,7 @@
 @section('content')
     <body>
     @include('inc.navbar')
-        <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -70,8 +73,37 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
-                        You are logged in!
+                        <h3>Your Inserted Books</h3>
+                        @if(count($books) > 0)
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Author</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($books as $book)
+                                    <?php $id = $book->id ?>
+                                    <tr>
+                                        <td>{{ $book->book_name }}</td>
+                                        <td>{{ $book->book_author }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info"
+                                                    onclick="location.href='{{ url('/book/'.$id) }}'">
+                                                View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>You have not inserted any books</p>
+                        @endif
                     </div>
                 </div>
             </div>

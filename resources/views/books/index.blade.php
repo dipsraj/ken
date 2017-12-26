@@ -26,6 +26,7 @@
 @section('content')
     <body>
     @include('inc.navbar')
+    @include('inc.messages')
     <?php
     if ($msg != null) {
         echo "<script>";
@@ -69,19 +70,34 @@
                                 </button>
                             </td>
                             @if(!Auth::guest())
-                                <td>
-                                    <button type="button" class="btn btn-warning"
-                                            onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
-                                    </button>
-                                </td>
-                                <?php $delete_url = '/delete/book/' . $id ?>
-                                <td>
-                                    <button type="button" class="btn btn-danger"
-                                            onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
-                                    </button>
-                                </td>
+                                @if(Auth::user()->id == $book->user_id)
+                                    <td>
+                                        <button type="button" class="btn btn-warning"
+                                                onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
+                                        </button>
+                                    </td>
+                                    <?php $delete_url = '/delete/book/' . $id ?>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"
+                                                onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
+                                        </button>
+                                    </td>
+                                @else
+                                    <td>
+                                        <button type="button" class="btn btn-warning" disabled="">Edit</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" disabled="">Delete</button>
+                                    </td>
                                 @endif
+                            @else
+                                <td>
+                                    <button type="button" class="btn btn-warning" disabled="">Edit</button>
                                 </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" disabled="">Delete</button>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

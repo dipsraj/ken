@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
 class BooksController extends Controller
 {
@@ -55,11 +54,12 @@ class BooksController extends Controller
     {
         $book = new Book;
         $book->book_name = $request->input('book_name');
-        $book->book_name = $request->input('book_author');
-        $book->book_name = $request->input('book_pages');
-        $book->book_name = $request->input('book_price');
-        $book->book_name = $request->input('book_category');
-        $book->book_name = $request->input('book_code');
+        $book->book_author = $request->input('book_author');
+        $book->book_pages = $request->input('book_pages');
+        $book->book_price = $request->input('book_price');
+        $book->book_category = $request->input('book_category');
+        $book->book_code = $request->input('book_code');
+        $book->user_id = auth()->user()->id;
         $book->save();
 
         session(['message' => 'Book Inserted Successfully.']);
@@ -100,6 +100,9 @@ class BooksController extends Controller
         if($book==null){
             return abort(404 , 'Book Not Found.');
         }
+        if(auth()->user()->id !=$book->user_id){
+            return redirect('/books')->with('error', 'Unauthorized Page');
+        }
         return view('books.edit')->with('msg',$msg)->with('book',$book)->with('id',$id);
     }
 
@@ -118,11 +121,11 @@ class BooksController extends Controller
         }
         else{
             $book->book_name = $request->input('book_name');
-            $book->book_name = $request->input('book_author');
-            $book->book_name = $request->input('book_pages');
-            $book->book_name = $request->input('book_price');
-            $book->book_name = $request->input('book_category');
-            $book->book_name = $request->input('book_code');
+            $book->book_author = $request->input('book_author');
+            $book->book_pages = $request->input('book_pages');
+            $book->book_price = $request->input('book_price');
+            $book->book_category = $request->input('book_category');
+            $book->book_code = $request->input('book_code');
             $book->save();
             session(['message' => 'Book Details Updated Successfully.']);
             return redirect('/book/'.$id);
@@ -140,6 +143,9 @@ class BooksController extends Controller
         $book = Book::find($id);
         if($book==null){
             return abort(404,'Book Not Found.');
+        }
+        if(auth()->user()->id !=$book->user_id){
+            return redirect('/books')->with('error', 'Unauthorized Page');
         }
         else{
             $book->delete();

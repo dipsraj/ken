@@ -26,6 +26,7 @@
 @section('content')
     <body>
     @include('inc.navbar')
+    @include('inc.messages')
     <div class="jumbotron" style="text-align: center">
         <h1>Edit Book Details</h1>
     </div>

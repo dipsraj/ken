@@ -26,6 +26,7 @@
 @section('content')
     <body>
     @include('inc.navbar')
+    @include('inc.messages')
     <?php
     if ($msg != null) {
         echo "<script>";
@@ -35,7 +36,7 @@
                     title: '" . $msg . "'
                 }).then((result) => {
                     if (result) {
-                        location.href = '/book/".$id."'
+                        location.href = '/book/" . $id . "'
                     }
                 });
             ";
@@ -45,13 +46,23 @@
     ?>
     <div class="jumbotron" style="text-align: center">
         <h1>{{ $book->book_name }}</h1>
-        <button type="button" class="btn btn-warning"
-                onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
-        </button>
-        <?php $delete_url = '/delete/book/'.$id ?>
-        <button type="button" class="btn btn-danger"
-                onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
-        </button>
+        @if(!Auth::guest())
+            @if(Auth::user()->id == $book->user_id)
+                <button type="button" class="btn btn-warning"
+                        onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
+                </button>
+                <?php $delete_url = '/delete/book/' . $id ?>
+                <button type="button" class="btn btn-danger"
+                        onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
+                </button>
+            @else
+                <button type="button" class="btn btn-warning" disabled="">Edit</button>
+                <button type="button" class="btn btn-danger" disabled="">Delete</button>
+            @endif
+        @else
+            <button type="button" class="btn btn-warning" disabled="">Edit</button>
+            <button type="button" class="btn btn-danger" disabled="">Delete</button>
+        @endif
     </div>
     <div class="flex-center">
         <div class="container">
@@ -79,6 +90,10 @@
                 <small>Created At</small>
                 <h2>{{ $book->created_at }}</h2>
             </div>
+            <div class="well">
+                <small>Inserted By</small>
+                <h2>{{ $book->user->name }}</h2>
+            </div>
         </div>
     </div>
     </body>
@@ -96,7 +111,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-                    location.href=url;
+                    location.href = url;
                 }
             })
         }
