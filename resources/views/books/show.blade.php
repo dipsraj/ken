@@ -27,23 +27,23 @@
     <body>
     @include('inc.navbar')
     @include('inc.messages')
-    <?php
-    if ($msg != null) {
-        echo "<script>";
-        echo "
-                swal({
-                    type: 'success',
-                    title: '" . $msg . "'
-                }).then((result) => {
-                    if (result) {
-                        location.href = '/book/" . $id . "'
-                    }
-                });
-            ";
-        echo "</script>";
-        $msg = null;
-    }
-    ?>
+    @php
+        if ($msg != null) {
+            echo "<script>";
+            echo "
+                    swal({
+                        type: 'success',
+                        title: '" . $msg . "'
+                    }).then((result) => {
+                        if (result) {
+                            location.href = '/book/" . $id . "'
+                        }
+                    });
+                ";
+            echo "</script>";
+            $msg = null;
+        }
+    @endphp
     <div class="jumbotron" style="text-align: center">
         <h1>{{ $book->book_name }}</h1>
         @if(!Auth::guest())
@@ -51,9 +51,11 @@
                 <button type="button" class="btn btn-warning"
                         onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
                 </button>
-                <?php $delete_url = '/delete/book/' . $id ?>
+                @php
+                    $delete_url = '/delete/book/' . $id
+                @endphp
                 <button type="button" class="btn btn-danger"
-                        onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
+                        onclick="return confirmDelete('{{ $delete_url }}')">Delete
                 </button>
             @else
                 <button type="button" class="btn btn-warning" disabled="">Edit</button>

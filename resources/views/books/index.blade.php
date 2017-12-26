@@ -27,23 +27,23 @@
     <body>
     @include('inc.navbar')
     @include('inc.messages')
-    <?php
-    if ($msg != null) {
-        echo "<script>";
-        echo "
-                swal({
-                    type: 'success',
-                    title: '" . $msg . "'
-                }).then((result) => {
-                    if (result) {
-                        location.href = '/books'
-                    }
-                });
-            ";
-        echo "</script>";
-        $msg = null;
-    }
-    ?>
+    @php
+        if ($msg != null) {
+            echo "<script>";
+            echo "
+                    swal({
+                        type: 'success',
+                        title: '" . $msg . "'
+                    }).then((result) => {
+                        if (result) {
+                            location.href = '/books'
+                        }
+                    });
+                ";
+            echo "</script>";
+            $msg = null;
+        }
+    @endphp
     <div class="flex-center position-ref full-height">
         <div class="container">
             @if(count($books)>0)
@@ -59,7 +59,9 @@
                     </thead>
                     <tbody>
                     @foreach($books as $book)
-                        <?php $id = $book->id ?>
+                        @php
+                            $id = $book->id
+                        @endphp
                         <tr>
                             <td>{{ $book->book_name }}</td>
                             <td>{{ $book->book_author }}</td>
@@ -76,10 +78,12 @@
                                                 onclick="location.href='{{ url('/edit/book/'.$id) }}'">Edit
                                         </button>
                                     </td>
-                                    <?php $delete_url = '/delete/book/' . $id ?>
+                                    @php
+                                        $delete_url = '/delete/book/' . $id
+                                    @endphp
                                     <td>
                                         <button type="button" class="btn btn-danger"
-                                                onclick="return confirmDelete('<?php echo $delete_url ?>')">Delete
+                                                onclick="return confirmDelete('{{ $delete_url }}')">Delete
                                         </button>
                                     </td>
                                 @else
@@ -104,20 +108,20 @@
                 </table>
                 {{$books->links()}}
             @else
-                <?php
-                echo "<script>";
-                echo "
-                swal({
-                    type: 'error',
-                    title: 'No Books Found.'
-                }).then((result) => {
-                    if (result) {
-                        location.href = '/'
-                    }
-                });
-                ";
-                echo "</script>";
-                ?>
+                @php
+                    echo "<script>";
+                    echo "
+                    swal({
+                        type: 'error',
+                        title: 'No Books Found.'
+                    }).then((result) => {
+                        if (result) {
+                            location.href = '/'
+                        }
+                    });
+                    ";
+                    echo "</script>";
+                @endphp
             @endif
         </div>
     </div>
